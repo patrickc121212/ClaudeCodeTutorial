@@ -79,7 +79,8 @@ class TicTacToe {
             this.gameInfoElement.textContent = "It's a tie!";
             this.scores.tie++;
         } else {
-            this.gameInfoElement.textContent = `Player ${winner} wins!`;
+            const winnerLabel = winner === 'X' ? '⚔️ Swords' : '🛡️ Shields';
+            this.gameInfoElement.textContent = `${winnerLabel} win!`;
             this.scores[winner]++;
             this.highlightWinningCells(winner);
         }
@@ -124,7 +125,7 @@ class TicTacToe {
         const cells = this.boardElement.children;
         for (let i = 0; i < cells.length; i++) {
             const cell = cells[i];
-            cell.textContent = this.board[i];
+            cell.textContent = ''; // Clear text content since we're using CSS
             cell.classList.remove('x', 'o');
 
             if (this.board[i] === 'X') {
@@ -139,7 +140,8 @@ class TicTacToe {
 
     updateGameInfo() {
         if (this.gameActive) {
-            this.gameInfoElement.textContent = `Player ${this.currentPlayer}'s turn`;
+            const playerLabel = this.currentPlayer === 'X' ? '⚔️ Swords' : '🛡️ Shields';
+            this.gameInfoElement.textContent = `${playerLabel}'s turn`;
         }
     }
 
