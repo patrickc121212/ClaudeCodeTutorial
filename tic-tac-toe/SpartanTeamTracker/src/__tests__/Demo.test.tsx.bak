@@ -1,0 +1,145 @@
+import React from 'react';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
+import App from '../App';
+
+// Mock navigation
+const mockNavigation = {
+  navigate: jest.fn(),
+};
+
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => mockNavigation,
+  NavigationContainer: ({ children }: any) => children,
+}));
+
+describe('Demo App Testing', () => {
+  test('App renders without crashing', () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    expect(getByText('Spartan Team Tracker (Demo)')).toBeTruthy();
+  });
+
+  test('Home screen shows demo data', () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    // Check if demo data is displayed
+    expect(getByText('Spartan Sprint Demo')).toBeTruthy();
+    expect(getByText('Spartan Warriors')).toBeTruthy();
+    expect(getByText('Members: 4')).toBeTruthy();
+  });
+
+  test('Navigation between screens works', () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    // Test navigation to Race screen
+    fireEvent.press(getByText('Start Race'));
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('Race');
+
+    mockNavigation.navigate.mockClear();
+
+    // Test navigation to Team screen
+    fireEvent.press(getByText('Manage Team'));
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('Team');
+
+    mockNavigation.navigate.mockClear();
+
+    // Test navigation to Analytics screen
+    fireEvent.press(getByText('View Analytics'));
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('Analytics');
+  });
+
+  test('Demo team members are loaded', async () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    // Navigate to Team screen
+    fireEvent.press(getByText('Manage Team'));
+
+    // Wait for demo data to load
+    await waitFor(() => {
+      expect(getByText('Team Management')).toBeTruthy();
+      expect(getByText('Alex Runner')).toBeTruthy();
+      expect(getByText('Taylor Sprinter')).toBeTruthy();
+      expect(getByText('Jordan Marathon')).toBeTruthy();
+      expect(getByText('Casey Obstacle')).toBeTruthy();
+    });
+  });
+
+  test('Race information displays correctly', async () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    // Navigate to Race screen
+    fireEvent.press(getByText('Start Race'));
+
+    await waitFor(() => {
+      expect(getByText('Race Management')).toBeTruthy();
+      expect(getByText('Spartan Sprint Demo')).toBeTruthy();
+      expect(getByText('Sprint')).toBeTruthy();
+      expect(getByText('5.0km')).toBeTruthy();
+    });
+  });
+
+  test('Analytics screen shows performance data', async () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    // Navigate to Analytics screen
+    fireEvent.press(getByText('View Analytics'));
+
+    await waitFor(() => {
+      expect(getByText('Performance Analytics')).toBeTruthy();
+      expect(getByText('Team Performance')).toBeTruthy();
+      expect(getByText('Race Overview')).toBeTruthy();
+      expect(getByText('Member Performance')).toBeTruthy();
+    });
+  });
+});
+
+describe('Demo Functionality', () => {
+  test('Mock location service works', async () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    // Check if location tracking is indicated
+    await waitFor(() => {
+      // The app should show GPS status
+      expect(getByText('GPS:')).toBeTruthy();
+    });
+  });
+
+  test('Mock Firebase service provides data', async () => {
+    const state = store.getState();
+
+    // Check if demo data is loaded into store
+    expect(state.team.members.length).toBeGreaterThan(0);
+    expect(state.race.name).toBe('Spartan Sprint Demo');
+    expect(state.race.type).toBe('sprint');
+  });
+});

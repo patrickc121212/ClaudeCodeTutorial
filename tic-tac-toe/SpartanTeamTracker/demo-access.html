@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spartan Team Tracker - Demo Access</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .status {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        .button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        .demo-info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏃‍♂️ Spartan Team Tracker</h1>
+
+        <div class="status">
+            <h2>🚀 App Status: Building...</h2>
+            <p>The Expo development server is currently building your app.</p>
+            <p>This can take a few minutes on the first run.</p>
+        </div>
+
+        <div class="qr-placeholder">
+            QR Code will appear here<br>once build completes
+        </div>
+
+        <div class="instructions">
+            <h3>📱 How to Access Your App</h3>
+            <p><strong>Option 1: Expo Go App (Recommended)</strong></p>
+            <ol>
+                <li>Install "Expo Go" on your iOS/Android device</li>
+                <li>Scan the QR code above once it appears</li>
+                <li>The app will load on your phone</li>
+            </ol>
+
+            <p><strong>Option 2: Web Browser</strong></p>
+            <a href="http://localhost:8081" class="button" target="_blank">Open in Browser</a>
+
+            <p><strong>Option 3: Simulator</strong></p>
+            <p>Once build completes, press:</p>
+            <ul>
+                <li><code>i</code> for iOS simulator</li>
+                <li><code>a</code> for Android emulator</li>
+                <li><code>w</code> for web browser</li>
+            </ul>
+        </div>
+
+        <div class="demo-info">
+            <h3>🎮 Demo Features Ready to Test</h3>
+            <div class="feature-list">
+                <div class="feature">🏠 Home Screen<br>Demo race overview</div>
+                <div class="feature">👥 Team Management<br>4 pre-loaded members</div>
+                <div class="feature">⏱️ Race Tracking<br>Start/stop timing</div>
+                <div class="feature">📊 Performance Analytics<br>Real-time metrics</div>
+                <div class="feature">🗺️ Map View<br>Simulated locations</div>
+                <div class="feature">🔒 Mock Services<br>No external dependencies</div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>💡 While You Wait</h3>
+            <p>The app is being built with:</p>
+            <ul>
+                <li>✅ React Native + Expo</li>
+                <li>✅ TypeScript for type safety</li>
+                <li>✅ Redux for state management</li>
+                <li>✅ Mock services for offline testing</li>
+                <li>✅ Demo data pre-loaded</li>
+            </ul>
+            <p>Once the build completes, you'll see a QR code and can start testing immediately!</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="http://localhost:8081" class="button" target="_blank">Try Web Version Now</a>
+            <a href="./DEMO_READY.md" class="button" target="_blank">View Demo Guide</a>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh the page every 30 seconds to check build status
+        setTimeout(() => {
+            window.location.reload();
+        }, 30000);
+
+        // Try to open web version automatically
+        setTimeout(() => {
+            const webLink = document.querySelector('a[href="http://localhost:8081"]');
+            if (webLink) {
+                console.log('Attempting to open web version...');
+                // This will only work if user interacts with page first
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
